@@ -1,0 +1,13 @@
+<label>{{CommoditySelected.id}}</label>
+<div>
+	<label ng-repeat="d in commodities">
+		<input type="radio" id="{{d.id}}" value="{{d.id}}" name="commodity" ng-model="CommoditySelected.id"></input> 
+		{{d.name}}
+		<br/>
+	</label>  
+</div>
+
+<a href="" ng-click="setAgriculturalOutlookData()">Ver</a>
+<parallel-coordinates-chart id="chart" val="agriculturalOutlookData">
+	<svg></svg>
+</parallel-coordinates-chart>
