@@ -2,6 +2,9 @@
 
 angular.module('AgriculturalOutlookApp')
   .controller('MainCtrl', ['$scope','$http', function ($scope,$http) {
+    $scope.selectCommodity = function(commodity){
+        $scope.CommoditySelected=commodity;
+    }
     $scope.agriculturalOutlookData={width:200,height:200};
     //$scope.oecdJsonService = "http://stats.oecd.org/SDMX-PROTO-JSON/data/HIGH_AGLINK_2012/..BALANCE+QP+QP__BME+QP__BMD+IM+QC+ST+EX+NT+SPECIFIC+AH+CI+CR+FE+FO+BF+OU+YLD+PRICES+XP+PP+RATIO+PC/OECD?startTime=2010&endTime=2010";
     $scope.dataSet = "HIGH_AGLINK_2012";
