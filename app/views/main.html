@@ -46,9 +46,15 @@
 			</div>
 			<!-- Charts -->
 			<div class="span7">
+				<div class="row-fluid">
 				<parallel-coordinates-chart id="chart" val="agriculturalOutlookData">
 					<div id="principal"  class="parcoords" style="height:600px;"></div>
 				</parallel-coordinates-chart>
+				</div>
+				<div class="row-fluid">
+					<div id="grid"></div>
+					<div id="pager"></div>
+				</div>
 			</div>
 			<div class="span3 options">
 				<div class="year">
@@ -58,13 +64,6 @@
 					<h2>{{CommoditySelected.name}}</h2>
 				</div>
 			</div>
-		</div>
-	</div>
-
-	<div class="container-fluid">
-		<div class="row-fluid">
-			<div id="grid"></div>
-			<div id="pager"></div>
 		</div>
 	</div>
 </div>
