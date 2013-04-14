@@ -1,3 +1,26 @@
+<<<<<<< HEAD
+<label>{{CommoditySelected.id}}</label>
+<div>
+	<label ng-repeat="d in commodities">
+		<input type="radio" id="{{d.id}}" value="{{d.id}}" name="commodity" ng-model="CommoditySelected.id" ng-click="generateCharts()"></input> 
+		{{d.name}}
+		<br/>
+	</label>  
+</div>
+
+<a href="" ng-click="setAgriculturalOutlookData()">Ver</a>
+<parallel-coordinates-chart id="chart" val="agriculturalOutlookData">
+	<div id="principal" class="parcoords" style="width:500px;height:600px;"></div>
+</parallel-coordinates-chart>
+<br>
+<data-grid-parallel id="table" val="dataByCommodityYear">
+	<div id="grid"></div>
+	<div id="pager"></div>
+</data-grid-parallel>
+
+<div>
+<p>hola</p>
+=======
 <div class="row-fluid">
 	<!-- Variables -->
 	<div class="container-fluid">
@@ -99,4 +122,5 @@
             </table>
 		</div>
 	</div>
+>>>>>>> 60cefb488e161fd963f8d03828260a9c636aa5b8
 </div>

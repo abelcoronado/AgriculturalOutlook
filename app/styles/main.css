@@ -46,3 +46,75 @@ svg {
   stroke-opacity: .5;
   stroke-width: 1px;
 }
+body {
+  position: relative;
+  padding-top: 50px;
+  background-color: #F5F5F5;
+  font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif; 
+   font-weight: 300;
+}
+body > .navbar {
+  font-size: 13px;
+}
+body > .navbar .brand {
+  padding-right: 0;
+  padding-left: 0;
+  margin-left: 20px;
+  float: right;
+  font-weight: bold;
+  color: #444;
+  text-shadow: 0 1px 0 rgba(255,255,255), 0 0 30px rgba(255,255,255);
+  -webkit-transition: all .2s linear;
+  -moz-transition: all .2s linear;
+  transition: all .2s linear;
+}
+.breadcrumb {
+  background-color: #cfcfcf;
+border-bottom: 1px solid #DDD;
+
+text-shadow: 1px 1px 2px white;
+
+}
+.sidebar-nav-fixed {
+    padding: 9px 0;
+    position:fixed;
+    left:20px;
+    top:80px;
+}
+.options {
+  font-family: Open Sans, Arial, serif; font-weight: 400;
+  text-transform: lowercase;
+}
+.options h1 {
+  font-size: 5em;
+  color: rgba(0,0,0,.2);
+}
+.options h2 {
+  font-size: 3em;
+  color: rgba(0,0,0,.1);
+}
+.year {
+  margin-bottom: 30px;
+}
+.box {
+
+margin-bottom: 20px;
+}
+.box .box-header {
+
+}
+.box .box-header, .box .box-footer {
+text-shadow: 0 1px white;
+color: rgba(0,0,0,.5);;
+font-family: Open Sans, Arial, serif; font-weight: 600;
+}
+.box .box-header .title, .box .box-footer .title {
+float: left;
+display: block;
+padding: 10px;
+font-size: 25px;
+font-weight: 600;
+}
+.padding {
+padding: 15px;
+}
