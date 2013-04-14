@@ -1,6 +1,6 @@
 /* Will be compiled down to a single stylesheet with your sass files */
 svg {
-  font: 8px sans-serif;
+  font: 10px;
 }
 
 .background path {
