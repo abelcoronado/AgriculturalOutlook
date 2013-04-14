@@ -1,42 +1,42 @@
 'use strict';
 
-angular.module('AgriculturalOutlookApp')
-  .directive('parallelCoordinatesChart', function () {
+var AOAppModule = angular.module('AgriculturalOutlookApp');
+  AOAppModule.directive('parallelCoordinatesChart', function () {
     return {
       restrict: 'E',
       scope : { 
       	val:'='
       },
       link: function postLink(scope, element, attrs) {
-        var chart = parallelCoordinatesCharts();
-            if(attrs.height){
-              chart.height(+attrs.height);  
-            };
-            if(attrs.width){
-              chart.width(+attrs.width);
-            };
-            if(attrs.margin){
-              chart.margin(attrs.margin);
-            }
+        parcoords = d3.parcoords()("#principal");
         scope.$watch('val',function(newVal,oldVal){
-            if(!newVal){
+            if(newVal==oldVal){
               return;
             }
-            if(newVal.height){
-              chart.height(+newVal.height);
+            if(newVal==null){
+              return;
             }
-            if(newVal.width){
-              chart.width(+newVal.width);
+
+            if(parcoords.dimensions().length>0){
+              parcoords.clear("foreground");
+              parcoords.clear("shadows");
+              parcoords.clear("marks");
+              parcoords.removeAxes();
+              //parcoords.clear("extents");
+              //parcoords.clear("highlight");  
             }
-            if(newVal.margin){
-              chart.margin(newVal.margin);
-            }
-            if(newVal.dimensions){
-              chart.dimensions(newVal.dimensions); 
-            }
-            d3.select("#chart")
-              .datum(newVal.datum)
-              .call(chart);
+            //console.log(newVal.datum);
+            parcoords = d3.parcoords()("#principal");
+            parcoords.data(newVal.datum)
+                            .color(newVal.color)
+                            .alpha(0.5)
+                            .mode("queue")
+                            .render()
+                            .shadows()
+                            .brushable()
+                            .reorderable();
+                            
+                            
         });
       }
     };

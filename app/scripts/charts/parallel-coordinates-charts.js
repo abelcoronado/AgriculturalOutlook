@@ -5,42 +5,51 @@ function parallelCoordinatesCharts(){
 	var margin = {top: 30, right:40, bottom:20,left:200},
 		width  = 560,
 		height = 500,
-		dimensions = [],
+		dimensions = [];/*,
 		x = null,
 		line = null,
 		yAxis = null,
-		dimension = null;
+		dimension = null;*/
 
 	function chart(selection){
 		selection.each(
 			function(data){
 /*-----*/
+
 				if(!data){
+
 					return chart;
-				}
+				};
 				chart.update = function() { 					    	
 					    	chart(selection);
 				};
+				//console.log(data);
 				width  = width - margin.left - margin.right;
 				height = height - margin.top - margin.bottom;
-				x = d3.scale.ordinal()
+				var x = d3.scale.ordinal()
 				    .domain(dimensions.map(function(d) { return d.name; }))
 				    .rangePoints([0, width]);
-				line = d3.svg.line()
+				var line = d3.svg.line()
 				    .defined(function(d) { return !isNaN(d[1]); });
-				yAxis = d3.svg.axis()
+				var yAxis = d3.svg.axis()
 				    .orient("left");
-				var svg = d3.select(this).selectAll("svg")
-				    .attr("width", width + margin.left + margin.right)
+				
+				var svg = d3.select(this).selectAll("svg").data([data])
+					.attr("width", width + margin.left + margin.right)
 				    .attr("height", height + margin.top + margin.bottom);
 				    
-				svg = svg.selectAll(".g_container")
+				
+				svg = svg.enter().append("svg")
+							.append("svg:g")
+							.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+       
+				/*svg = svg.selectAll(".g_container")
 					.data([1])
 					.enter().append("g")
 					.attr("class", "g_container")
 					.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-
-				dimension = svg.selectAll(".dimension")
+				*/
+				var dimension = svg.selectAll(".dimension")
 				    .data(dimensions)
 				  .enter().append("g")
 				    .attr("class", "dimension")
@@ -59,14 +68,18 @@ function parallelCoordinatesCharts(){
 					}
 				});
 
-				svg.append("g")
-			      .attr("class", "background")
+				svg.selectAll(".background")
+				 .data([1])
+				 .enter().append("g")
+			     .attr("class", "background")
 			     .selectAll("path")
 			      .data(data)
 			     .enter().append("path")
 			      .attr("d", draw);
 
-				svg.append("g")
+				svg.selectAll(".foreground")
+				 .data([1])
+				 .enter().append("g")
 				  .attr("class", "foreground")
 				 .selectAll("path")
 				  .data(data)
@@ -105,6 +118,7 @@ function parallelCoordinatesCharts(){
 				    this.parentNode.appendChild(this);
 				  }
 				  function draw(d) {
+				  	console.log("QUE PASA!!!!");
 				  	return line(dimensions.map(function(dimension) {
 				    	return [x(dimension.name), dimension.scale(d[dimension.name])];
 				  	}));
