@@ -81,6 +81,7 @@ classes should alter those!
   position: absolute;
   border: 0px;
   width: 100%;
+  font-size: 12px;
 }
 
 .slick-cell, .slick-headerrow-column {
