@@ -29,8 +29,14 @@ var AOAppModule = angular.module('AgriculturalOutlookApp');
             parcoords = d3.parcoords()("#principal");
             parcoords.data(newVal.datum)
                             .color(newVal.color)
-                            .alpha(0.5)
+                            .alpha(1)
                             .mode("queue")
+                            .margin({
+                              top: 36,
+                              left: 130,
+                              right: 10,
+                              bottom: 16
+                            })
                             .render()
                             .shadows()
                             .brushable()

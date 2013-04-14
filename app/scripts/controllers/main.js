@@ -6,6 +6,10 @@ angular.module('AgriculturalOutlookApp')
         $scope.CommoditySelected=commodity;
         $scope.generateCharts();
     }
+    $scope.selectYear = function(y){
+        $scope.YearSelected.year=y;
+        $scope.generateCharts();
+    }
     $scope.agriculturalOutlookData={width:200,height:200};
     //$scope.oecdJsonService = "http://stats.oecd.org/SDMX-PROTO-JSON/data/HIGH_AGLINK_2012/..BALANCE+QP+QP__BME+QP__BMD+IM+QC+ST+EX+NT+SPECIFIC+AH+CI+CR+FE+FO+BF+OU+YLD+PRICES+XP+PP+RATIO+PC/OECD?startTime=2010&endTime=2010";
     $scope.dataSet = "HIGH_AGLINK_2012";
@@ -20,7 +24,8 @@ angular.module('AgriculturalOutlookApp')
     $scope.VariablesSelected=["QP","IM","QC","EX","ST","OU"];
     $scope.variables = [];
     $scope.Time = {startTime:2010,endTime:2021};
-    $scope.YearSelected = 2010-1970;
+    $scope.YearSelected = {year:2012};
+    $scope.Years = [2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021];
     $scope.oecdJsonService = "http://stats.oecd.org/SDMX-PROTO-JSON/data/";
     $scope.proxy = "services/proxy.php?url=";
     $scope.dataStore = [];
@@ -49,6 +54,7 @@ angular.module('AgriculturalOutlookApp')
             $scope.variables = _.findWhere($scope.dimensions,{id:"VARIABLE"}).codes;
             //Time 40 => 2010 ; 51 => 2021
         }
+        //console.log($scope.countries);
         _.each(data.dataSets,function(ds){
             _.each(ds.data,function(value,key){
                 var o = null;
@@ -57,7 +63,7 @@ angular.module('AgriculturalOutlookApp')
                     var obj = {};
                     var codes=key.split(":");
                     obj.ID=key;
-                    obj[$scope.dimensions[0].id]=$scope.countries[parseInt(codes[0])].id;
+                    obj[$scope.dimensions[0].id]=$scope.countries[parseInt(codes[0])].name;
                     obj[$scope.dimensions[1].id]=$scope.commodities[parseInt(codes[1])].id;
                     obj[$scope.dimensions[2].id]=$scope.variables[parseInt(codes[2])].id;
                     obj[$scope.dimensions[3].id]=parseInt(codes[3])+1970;
@@ -73,13 +79,13 @@ angular.module('AgriculturalOutlookApp')
     
     $scope.generateCharts = function(){
         
-        var dataSelected = _.where($scope.dataStore,{COMMODITY:$scope.CommoditySelected.id,TIME_PERIOD: 2010});
+        var dataSelected = _.where($scope.dataStore,{COMMODITY:$scope.CommoditySelected.id,TIME_PERIOD: $scope.YearSelected.year});
         dataSelected = _.groupBy(dataSelected,function(obj){ return obj.COUNTRY; });
         var ix = 0;
         dataSelected = _.map(dataSelected,function(obj){
             ix++;
             var o = {COUNTRY:obj[0].COUNTRY,};
-            o.id = ix;
+            //o.id = ix;
             _.each($scope.VariablesSelected,function(variableName){
                 o[variableName]=0.0;
             });
@@ -100,13 +106,14 @@ angular.module('AgriculturalOutlookApp')
             return o});
         //console.log($scope.countryColors);
         var AO={};
+        var colorgen = d3.scale.category20();
         var colorByCountry = function(country){
-            var color = $scope.countryColors[country];
-            if(color){
-                return color;
-            }else{
-                return "yellow";
-            }
+            
+            //var color = $scope.countryColors[country];
+            var color =  colorgen(country);
+            //console.log(colorgen(country+10));
+            //console.log(country);
+            return color;
         };
         AO.color = function(d){ return colorByCountry(d.COUNTRY);};
         AO.margin = {top: 30, right:40, bottom:20,left:200};
@@ -126,8 +133,8 @@ angular.module('AgriculturalOutlookApp')
           });
         var CY = {};
         CY.columns = columns;
-        console.log("COLUMNAS");
-        console.log(CY);
+        //console.log("COLUMNAS");
+        //console.log(CY);
         $scope.dataByCommodityYear = CY; 
 
         var options = {
@@ -183,11 +190,11 @@ angular.module('AgriculturalOutlookApp')
   }]);
 var sortcol = null;
 function gridUpdate (data,dataView) {
-                console.log("ola k ase");
-                console.log(dataView);
-                console.log(data);
+                //console.log("ola k ase");
+                //console.log(dataView);
+                //console.log(data);
                 dataView.beginUpdate();
-                dataView.setItems(data);
+                dataView.setItems(data,"COUNTRY");
                 dataView.endUpdate();
             };
 

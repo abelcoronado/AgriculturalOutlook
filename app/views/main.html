@@ -10,22 +10,9 @@
 							<button class="btn btn-primary">Years</button>
 							<button class="btn btn-primary dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
 							<ul class="dropdown-menu">
-								<li> <a href="">2010</a></li>
-								<li> <a href="">2010</a></li>
-								<li> <a href="">2010</a></li>
-								<li> <a href="">2010</a></li>
-								<li> <a href="">2010</a></li>
-								<li> <a href="">2010</a></li>
-								<li> <a href="">2010</a></li>
-								<li> <a href="">2010</a></li>
-								<li> <a href="">2010</a></li>
-								<li> <a href="">2010</a></li>
-								<li> <a href="">2010</a></li>
-								<li> <a href="">2010</a></li>
-								<li> <a href="">2010</a></li>
-								<li> <a href="">2010</a></li>
-								<li> <a href="">2010</a></li>
-								<li> <a href="">2010</a></li>
+								<li ng-repeat="y in Years">
+								  <a href="" ng-click="selectYear(y);">{{y}}</a>
+							    </li>
 							</ul>
 						</div>
 					</div>
@@ -58,10 +45,19 @@
 			</div>
 			<div class="span3 options">
 				<div class="year">
-					<h1>2013</h1>
+					<h1>{{YearSelected.year}}</h1>
 				</div>
 				<div class="comodity">
 					<h2>{{CommoditySelected.name}}</h2>
+				</div>
+				<div class="comodity">
+					<h3>QP: Production.</h3>
+					<h3>IM: Imports.</h3>
+					<h3>QC: Consumption.</h3>
+					<h3>EX: Exports.</h3>
+					<h3>ST: Ending stocks.</h3>
+					<h3>OU: Other use.</h3>
+					<h3>*kt (for Biofuels in millions of litres)</h3>
 				</div>
 			</div>
 		</div>
